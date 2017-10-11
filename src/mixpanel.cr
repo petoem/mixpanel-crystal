@@ -54,6 +54,12 @@ module Mixpanel
       track Event.new(name, properties)
     end
 
+    def track(name : String, &block : Event::Properties ->)
+      event = Event.new name
+      yield event.properties
+      track event
+    end
+
     def track_url(event : Event) : URI
       data = encode event
       url data
