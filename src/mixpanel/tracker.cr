@@ -21,7 +21,7 @@ module Mixpanel
 
     private def encode(event : Event) : String
       event.properties["token"] = @project_token unless event.properties.has_key?("token")
-      Base64.encode event.to_json
+      Base64.strict_encode event.to_json
     end
 
     private def url(data : String, ip : Bool = false, redirect : String? = nil, img : Bool = false, callback : String? = nil, verbose : Bool = false) : URI
