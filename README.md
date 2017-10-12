@@ -1,6 +1,6 @@
 # mixpanel
 
-TODO: Write a description here
+mixpanel.cr is a library for tracking events on Mixpanel from your crystal applications.
 
 ## Installation
 
@@ -16,13 +16,13 @@ dependencies:
 
 ```crystal
 require "mixpanel"
+
+# Use Mixpanel::Tracker to track events in your application. To track an event, use
+tracker = Mixpanel::Tracker.new "YOUR_TOKEN"
+tracker.track "Signup", Mixpanel::Event::Properties{"username" => "Pino", "Age" => 2}
 ```
 
 TODO: Write usage instructions here
-
-## Development
-
-TODO: Write development instructions here
 
 ## Contributing
 
