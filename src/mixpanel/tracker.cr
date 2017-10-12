@@ -24,9 +24,16 @@ module Mixpanel
       Base64.encode event.to_json
     end
 
-    private def url(data : String) : URI
+    private def url(data : String, ip : Bool = false, redirect : String? = nil, img : Bool = false, callback : String? = nil, verbose : Bool = false) : URI
       url = @endpoint.dup
-      url.query = "data=#{data}"
+      request_parameters = [] of String
+      request_parameters << "data=#{data}"
+      request_parameters << "ip=#{ip.hash}" if ip
+      request_parameters << "redirect=#{redirect}" if redirect
+      request_parameters << "img=#{img.hash}" if img
+      request_parameters << "callback=#{callback}" if callback
+      request_parameters << "verbose=#{verbose.hash}" if verbose
+      url.query = request_parameters.join "&"
       url
     end
 
@@ -45,13 +52,13 @@ module Mixpanel
       track event
     end
 
-    def track_url(event : Event) : URI
+    def track_url(event : Event, ip : Bool = false, redirect : String? = nil, img : Bool = false, callback : String? = nil, verbose : Bool = false) : URI
       data = encode event
-      url data
+      url data, ip, redirect, img, callback, verbose
     end
 
-    def track_url(name : String, properties : Event::Properties) : URI
-      track_url Event.new(name, properties)
+    def track_url(name : String, properties : Event::Properties, ip : Bool = false, redirect : String? = nil, img : Bool = false, callback : String? = nil, verbose : Bool = false) : URI
+      track_url Event.new(name, properties), ip, redirect, img, callback, verbose
     end
   end
 end
