@@ -1,5 +1,9 @@
 # mixpanel-crystal
 
+[![GitHub release](https://img.shields.io/github/release/petoem/mixpanel-crystal.svg?style=flat-square)](https://github.com/petoem/mixpanel-crystal/releases)
+[![Travis](https://img.shields.io/travis/petoem/mixpanel-crystal.svg?style=flat-square)](https://travis-ci.org/petoem/mixpanel-crystal)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/petoem/mixpanel-crystal/blob/master/LICENSE)  
+
 **mixpanel-crystal** is a library for tracking events on Mixpanel from your crystal applications.
 
 ## Installation
