@@ -76,12 +76,12 @@ module Mixpanel
     end
     
     # Sends all events as a batch request to mixpanel.
-    def track(*events : Event::Properties)
+    def track(*events : Event)
       track events.to_a
     end
 
-    # Sends `Array(Event::Properties)` as a batch request to mixpanel.
-    def track(events : Array(Event::Properties))
+    # Sends `Array(Event)` as a batch request to mixpanel.
+    def track(events : Array(Event))
       events.map! { |event| event.properties["token"] = @project_token unless event.properties.has_key?("token"); event }
       data = encode events
       send_batch data
