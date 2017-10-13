@@ -1,6 +1,6 @@
-# mixpanel
+# mixpanel-crystal
 
-mixpanel.cr is a library for tracking events on Mixpanel from your crystal applications.
+**mixpanel-crystal** is a library for tracking events on Mixpanel from your crystal applications.
 
 ## Installation
 
@@ -9,7 +9,7 @@ Add this to your application's `shard.yml`:
 ```yaml
 dependencies:
   mixpanel:
-    github: petoem/mixpanel.cr
+    github: petoem/mixpanel-crystal
 ```
 
 ## Usage
@@ -26,7 +26,7 @@ TODO: Write usage instructions here
 
 ## Contributing
 
-1. Fork it ( https://github.com/petoem/mixpanel.cr/fork )
+1. Fork it ( https://github.com/petoem/mixpanel-crystal/fork )
 2. Create your feature branch (git checkout -b my-new-feature)
 3. Commit your changes (git commit -am 'Add some feature')
 4. Push to the branch (git push origin my-new-feature)
