@@ -82,6 +82,7 @@ module Mixpanel
 
     # Sends `Array(Event::Properties)` as a batch request to mixpanel.
     def track(events : Array(Event::Properties))
+      events.map! { |event| event.properties["token"] = @project_token unless event.properties.has_key?("token"); event }
       data = encode events
       send_batch data
     end
