@@ -26,10 +26,21 @@ module Mixpanel
       end
     end
 
-    # Returns base64-encoded event with added mixpanel token.
-    private def encode(event : Event) : String
-      event.properties["token"] = @project_token unless event.properties.has_key?("token")
+    # Sends batch request to mixpanel.
+    private def send_batch(data : String)
+      @client.post_form @endpoint.full_path, {"data" => data} do |res|
+        raise "Failed to send track event: #{res.status_message}" unless res.success? 
+      end
+    end
+
+    # Returns base64-encoded event.
+    private def encode(event : Event) : String  
       Base64.strict_encode event.to_json
+    end
+
+    # Returns base64-encoded events for batch request.
+    private def encode(events : Array(Event))
+      Base64.strict_encode events.to_json
     end
 
     # Generates tracking `URI`.
@@ -63,9 +74,19 @@ module Mixpanel
       yield event.properties
       track event
     end
+    
+    def track(*events : Event::Properties)
+      track events.to_a
+    end
+
+    def track(events : Array(Event::Properties))
+      data = encode events
+      send_batch data
+    end
 
     # Generates tracking `URI` from event and request parameters.
     def track_url(event : Event, ip : Bool = false, redirect : String? = nil, img : Bool = false, callback : String? = nil, verbose : Bool = false) : URI
+      event.properties["token"] = @project_token unless event.properties.has_key?("token")
       data = encode event
       url data, ip, redirect, img, callback, verbose
     end
