@@ -75,10 +75,12 @@ module Mixpanel
       track event
     end
     
+    # Sends all events as a batch request to mixpanel.
     def track(*events : Event::Properties)
       track events.to_a
     end
 
+    # Sends `Array(Event::Properties)` as a batch request to mixpanel.
     def track(events : Array(Event::Properties))
       data = encode events
       send_batch data
