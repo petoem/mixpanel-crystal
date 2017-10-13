@@ -43,9 +43,9 @@ describe Mixpanel do
         "type" => "generate",
         "run" => spec_run,
         "Random Number" => rand 10
-      }, redirect: "https://petoe.me/"
+      }, callback: "wasTracked"
 
-      "https://petoe.me/".should eq `curl -Ls -o /dev/null -w %{url_effective} #{url.to_s}`
+      "wasTracked(1);".should eq `curl -Ls "#{url.to_s}"`
     end
   end
 end
