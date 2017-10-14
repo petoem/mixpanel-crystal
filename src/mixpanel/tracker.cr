@@ -29,12 +29,12 @@ module Mixpanel
     # Sends batch request to mixpanel.
     private def send_batch(data : String)
       @client.post_form @endpoint.full_path, {"data" => data}, HTTP::Headers{"User-Agent" => "mixpanel-crystal #{VERSION}"} do |res|
-        raise "Failed to send track event: #{res.status_message}" unless res.success? 
+        raise "Failed to send track event: #{res.status_message}" unless res.success?
       end
     end
 
     # Returns base64-encoded event.
-    private def encode(event : Event) : String  
+    private def encode(event : Event) : String
       Base64.strict_encode event.to_json
     end
 
@@ -74,7 +74,7 @@ module Mixpanel
       yield event.properties
       track event
     end
-    
+
     # Sends all events as a batch request to mixpanel.
     def track(*events : Event)
       track events.to_a
