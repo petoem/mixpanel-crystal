@@ -28,7 +28,7 @@ module Mixpanel
 
     # Sends batch request to mixpanel.
     private def send_batch(data : String)
-      @client.post_form @endpoint.full_path, {"data" => data} do |res|
+      @client.post_form @endpoint.full_path, {"data" => data}, HTTP::Headers{"User-Agent" => "mixpanel-crystal #{VERSION}"} do |res|
         raise "Failed to send track event: #{res.status_message}" unless res.success? 
       end
     end
