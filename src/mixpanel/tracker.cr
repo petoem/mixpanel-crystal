@@ -21,7 +21,7 @@ module Mixpanel
 
     # Sends `HTTP::Client#get` request to tracking url.
     private def send(event : URI)
-      @client.get event.full_path, headers: HTTP::Headers{"User-Agent" => "mixpanel.cr #{VERSION}"} do |res|
+      @client.get event.full_path, headers: HTTP::Headers{"User-Agent" => "mixpanel-crystal #{VERSION}"} do |res|
         raise "Failed to send track event: #{res.status_message}" unless res.success? && res.body_io.gets == "1"
       end
     end
