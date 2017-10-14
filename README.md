@@ -26,7 +26,7 @@ tracker = Mixpanel::Tracker.new "YOUR_TOKEN"
 tracker.track "Signup", Mixpanel::Event::Properties{"username" => "Pino", "Age" => 2}
 ```
 
-TODO: Write usage instructions here
+You can also take a look at the [specs](https://github.com/petoem/mixpanel-crystal/blob/master/spec/mixpanel_spec.cr) for more examples or generate documentation with `crystal docs` command.
 
 ## Contributing
 
