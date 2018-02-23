@@ -10,25 +10,26 @@ module Mixpanel
   # ```
   class Tracker
     @endpoint : URI
-    @client : HTTP::Client
+    @client : HTTP::Client?
     @project_token : String
 
     # Create new `Mixpanel::Tracker` with your mixpanel token.
     def initialize(@project_token, endpoint_track_url : String = ENDPOINT_TRACK)
       @endpoint = URI.parse endpoint_track_url
-      @client = HTTP::Client.new @endpoint
     end
 
     # Sends `HTTP::Client#get` request to tracking url.
     private def send(event : URI)
-      @client.get event.full_path, headers: HTTP::Headers{"User-Agent" => "mixpanel-crystal #{VERSION}"} do |res|
+      @client = HTTP::Client.new @endpoint unless @client
+      @client.not_nil!.get event.full_path, headers: HTTP::Headers{"User-Agent" => "mixpanel-crystal #{VERSION}"} do |res|
         raise "Failed to send track event: #{res.status_message}" unless res.success? && res.body_io.gets == "1"
       end
     end
 
     # Sends batch request to mixpanel.
     private def send_batch(data : String)
-      @client.post @endpoint.full_path, HTTP::Headers{"User-Agent" => "mixpanel-crystal #{VERSION}"}, form: {"data" => data} do |res|
+      @client = HTTP::Client.new @endpoint unless @client
+      @client.not_nil!.post @endpoint.full_path, HTTP::Headers{"User-Agent" => "mixpanel-crystal #{VERSION}"}, form: {"data" => data} do |res|
         raise "Failed to send track event: #{res.status_message}" unless res.success? && res.body_io.gets == "1"
       end
     end
