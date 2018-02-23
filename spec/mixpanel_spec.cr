@@ -1,10 +1,10 @@
 require "./spec_helper"
-require "secure_random"
+require "uuid"
 
 describe Mixpanel do
   describe "Tracker" do
     tracker = Mixpanel::Tracker.new "63777d70db1a6b84ac6936c4d07e9155"
-    spec_run = SecureRandom.uuid # Unique identifier for this run.
+    spec_run = UUID.random.to_s # Unique identifier for this run.
 
     it "single request" do
       properties = Mixpanel::Event::Properties{
