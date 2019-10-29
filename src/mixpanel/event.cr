@@ -18,7 +18,7 @@ module Mixpanel
   # ```
   class Event
     # The Properties of a `Mixpanel::Event`
-    alias Properties = Hash(String, JSON::Type | Int32) # for convenience add Int32
+    alias Properties = Hash(String, JSON::Any::Type | Int32) # for convenience add Int32
     JSON.mapping({
       event:      String,
       properties: Properties,
